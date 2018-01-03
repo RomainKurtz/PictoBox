@@ -9,7 +9,7 @@ requirejs(["socketio", "UI/UIManager", "PictoBox/ServerMessageManager"],
         ServerMessageManager.eventSender('getRoomID');
 
         ServerMessageManager.eventSubscriber('playerList', function(data) {
-            UIManager.diplayPlayerList(data.playerName);
+            UIManager.diplayPlayerList(data);
         });
     }
 );

@@ -25,15 +25,19 @@ var app = require('express')();
     socket.on('getRoomID',function(){
     	var NewRoomID = returnRandomRoomID();
     	socket.join(NewRoomID);
+        socket.custom = {type : 'appHost'};
     	console.log("Server room "+NewRoomID);
     	socket.emit('roomID', NewRoomID);
     });
     socket.on('newPlayer', function(data){
     	socket.join(data.roomID);
-    	socket.broadcast.to(data.roomID).emit('playerList', data);
+        socket.custom = {type : 'appPlayer', playerName : data.playerName};
+        var playerList = getPlayersNameArrayByRoomName(data.roomID);
+    	socket.broadcast.to(data.roomID).emit('playerList', playerList);
     	//io.emit('playerList', data);
     	console.log("Player join "+ data.roomID);
-    	console.log(socket.room);
+    	//var ttt = getSocketArrayByRoomName(data.roomID);
+        console.log(playerList);
     });
  });
 
@@ -47,6 +51,25 @@ var app = require('express')();
         .substring(1);
 }
 
+function getSocketArrayByRoomName(roomName){
+    var returnArray = [];
+    var clients = io.sockets.adapter.rooms[roomName].sockets;
+    for (var clientId in clients ) {
+        //this is the socket of each client in the room.
+        returnArray.push(io.sockets.connected[clientId]); 
+    }
+    return returnArray;
+}
 
+function getPlayersNameArrayByRoomName(roomName) {
+    var returnArray = [];
+    var socketArray = getSocketArrayByRoomName(roomName);
+    for (var i = 0; i < socketArray.length; i++) {
+        if(socketArray[i].custom.type == "appPlayer"){
+            returnArray.push(socketArray[i].custom.playerName);
+        }
+    }
+    return returnArray;
+}
 
 //

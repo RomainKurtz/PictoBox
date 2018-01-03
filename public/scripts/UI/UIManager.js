@@ -29,7 +29,11 @@ define("UI/UIManager", [],
                 $("#room-id-div").text(id);
             },
             diplayPlayerList : function(playerList){
-                $("#playerList-div").text(playerList);
+                $("#playerList-div").text('');
+                for (var i = 0; i < playerList.length; i++) {
+                    $("#playerList-div").append(playerList[i] +' +++ ');
+                }
+                
             }
         };
         UIManager.getInstance = function() {
