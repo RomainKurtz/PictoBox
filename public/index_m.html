@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>PICTO BOX</title>
+        <link rel="stylesheet" type="text/css" href="./style/main.css">
+        
+        <!--Import Materialize - Not work with AMD for now-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="./bower_components/Materialize/dist/css/materialize.min.css" media="screen,projection" />
+        <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="./bower_components/Materialize/dist/js/materialize.js"></script>
+        <!-- End of Materialize -->
+
+        <!-- requireJS -->
+        <script data-main="scripts/main_m" src="./bower_components/requirejs/require.js"></script>
+        <script src="./scripts/require-config.js"></script>
+        <!-- End of requireJS -->
+        
+       <!--  <script type="text/javascript" src="scripts/ga.js"></script> -->
+    </head>
+    
+
+    <body>
+        <div>
+           <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s6">
+                  <i class="material-icons prefix">account_circle</i>
+                  <input id="namePlayer-input" type="text" class="validate">
+                  <label for="namePlayer-input">Name</label>
+                </div>
+              </div>
+              <div class="row">
+              <div class="input-field col s6">
+                  <i class="material-icons prefix">room</i>
+                  <input id="roomID-input" type="tel" class="validate">
+                  <label for="roomID-input">RoomID</label>
+                </div>
+              </div>
+              <div class="row">
+              <a id="connection-button" class="waves-effect waves-light btn">Go!</a>
+              </div>
+            </form>
+          </div>
+        </div>
+    </body>
+
+</html>

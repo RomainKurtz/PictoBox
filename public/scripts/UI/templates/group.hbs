@@ -1,0 +1,61 @@
+<span id="span-{{id}}">
+    <!-- Button Group -->
+    <a id="button-{{id}}"class="waves-effect waves-light btn black btn-footer" data-target="modal-{{id}}">
+    <i class="material-icons right">input</i><i class="material-icons left">stop</i>{{groupName}}</a> 
+
+    <!-- Modal group options -->
+    <div id="modal-{{id}}" class="modal modalGroup">
+    <p class="titreGroup" id="titre-{{id}}">{{numberOfPlanets}} PLANETS</p>
+        <div class="modal-cotnent">
+
+            <!-- switch display -->
+            <div class="switch">
+                <label>Hide <input id="displaySwitch-{{id}}" type="checkbox" checked><span class="lever"></span> Show</label>
+            </div>
+
+            <!-- color picker -->
+            <div class="switch">
+                <label>Auto <input id="colorPickerSwitch-{{id}}" type="checkbox"><span class="lever"></span> Color</label>
+            </div>
+            <div id="divColorPicker-{{id}}" class="divColorPicker">
+                <select id="colorpicker-{{id}}">
+                  <option value="#E8180C">Red</option>
+                  <option value="#2016E8">Blue</option>
+                  <option value="#E0E80C">Yellow</option>
+                  <option value="#28E823">Green</option>
+                  <option value="#FF2C0F">Orange</option>
+                  <option value="#CA47FF">Purple</option>
+                  <option value="#E80C59">Pink</option>
+                  <option value="#17CC74">Turquoise</option>
+                  <option value="#FFF5F3">White</option>
+                  <option value="#339DFF">Light Blue</option>
+                </select>
+            </div>
+            <!-- end of color picker -->
+            
+            <!-- switch live subscriber -->
+            <div class="switch">
+                <label> Stop <input id="liveSubscriberSwitch-{{id}}" type="checkbox" checked><span class="lever"></span> Live</label>
+            </div>
+
+            <!-- limit -->
+              <div>
+                <div class="divLimit">
+                  <!-- input -->
+                  <input id="inputLimit-{{id}}" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="inputLimit">
+                  <!-- button -->
+                  <a id="buttonLimit-{{id}}" class="waves-effect waves-light btn buttonLimit">ok</a>
+              </div>
+            </div>
+            <!-- end of limit -->
+
+            <!-- reset button -->
+            <a id="buttonReset-{{id}}"class="waves-effect waves-teal btn-flat redFont"><i class="material-icons left">settings_backup_restore</i>Reset</a>
+
+            <!-- delete button -->
+            <a id="buttonDelete-{{id}}"class="waves-effect waves-teal btn-flat redFont"><i class="material-icons left">delete</i>Delete</a>
+
+        </div>
+    </div>
+    <!-- End of Modal tweet -->
+</span>

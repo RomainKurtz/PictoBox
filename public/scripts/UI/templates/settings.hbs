@@ -1,0 +1,30 @@
+<span id="span-Settings">
+    <!-- Button Settings -->
+        <a id="buttonSettings" class="waves-effect waves-light btn black" data-target="modalSettings"><i class="material-icons left">settings</i>Settings</a>
+
+
+    <!-- Modal group options -->
+    <div id="modalSettings" class="modal modalGroup">
+    <p class="titreGroup" id="titre-{{id}}">SETTINGS</p>
+        <div class="modal-cotnent">
+
+            <div class="switch">
+                <label>Hide <input id="displaySwitch-{{id}}" type="checkbox" checked><span class="lever"></span> Show</label>
+            </div>
+
+            <div class="switch">
+                <label>Auto <input id="colorPickerSwitch-{{id}}" type="checkbox"><span class="lever"></span> Color</label>
+            </div>
+
+            <input id="rangeScale-{{id}}" type="range" min="{{scaleRange.min}}" max="{{scaleRange.max}}" step="{{scaleRange.step}}" value="{{scaleRange.value}}" style="transform: rotateY(180deg);" />
+
+    <div class="input-field col s6">
+          <input id="icon_prefix" type="text" class="validate">
+          <label for="icon_prefix">First Name</label>
+        </div>
+
+             <a id="buttonGithub"class="waves-effect waves-teal btn-flat blueFont"><i class="material-icons left">person_pin</i>Github</a>
+        </div>
+    </div>
+    <!-- End of Modal tweet -->
+</span>
