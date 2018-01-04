@@ -33,6 +33,8 @@ var app = require('express')();
     	socket.join(data.roomID);
         socket.custom = {type : 'appPlayer', playerName : data.playerName};
         var playerList = getPlayersNameArrayByRoomName(data.roomID);
+        
+        socket.emit('connectionRespond', {respond : true});
     	socket.broadcast.to(data.roomID).emit('playerList', playerList);
     	//io.emit('playerList', data);
     	console.log("Player join "+ data.roomID);

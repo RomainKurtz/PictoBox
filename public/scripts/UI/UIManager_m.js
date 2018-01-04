@@ -1,5 +1,5 @@
-define("UI/UIManager_m", ["PictoBox/ServerMessageManager"],
-    function(ServerMessageManager) {
+define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m"],
+    function(ServerMessageManager, Connection_m) {
         var instance = null;
 
         function UIManager_m() {
@@ -16,21 +16,15 @@ define("UI/UIManager_m", ["PictoBox/ServerMessageManager"],
                 this._buildUIBehaviour();
             },
             createUI: function() {
-               this.defindPlayerName("totototo");
-               Materialize.updateTextFields();
+               this.connection_m = new Connection_m($('#mainContent'), this._callballConnection);
+               //this.defindPlayerName("totototo");
+               //Materialize.updateTextFields();
             },
             _buildUIBehaviour: function() {
                 var _this = this;
-                $("#connection-button").click(function(){
-                    var playerName = $("#namePlayer-input").val();
-                    var roomID = $("#roomID-input").val();
-
-                    ServerMessageManager.eventSender('newPlayer',
-                        {
-                            roomID : roomID,
-                            playerName : playerName 
-                        })
-                    })
+            },
+            _callballConnection(data){
+                 ServerMessageManager.eventSender('newPlayer',{roomID : data.roomID, playerName : data.playerName });
             },
             createNotification: function(message, duration){
                 var time = (duration)?duration:4000;
@@ -38,6 +32,12 @@ define("UI/UIManager_m", ["PictoBox/ServerMessageManager"],
             },
             defindPlayerName: function(name){
                 $("#namePlayer-input").val(name);
+            },
+            connected : function(isConnected){
+                if(isConnected){
+                    this.connection_m.hide();
+                    console.log('COONECCTED §!!!');
+                }
             }
         };
         UIManager_m.getInstance = function() {

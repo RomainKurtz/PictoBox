@@ -13,7 +13,6 @@ define("UI/UIManager", [],
                 // summary:
                 // Initializes the singleton. 
                 this.createUI();
-
             },
             createUI: function() {
                
@@ -31,7 +30,7 @@ define("UI/UIManager", [],
             diplayPlayerList : function(playerList){
                 $("#playerList-div").text('');
                 for (var i = 0; i < playerList.length; i++) {
-                    $("#playerList-div").append(playerList[i] +' +++ ');
+                    $("#playerList-div").append(playerList[i] +'<br>');
                 }
                 
             }

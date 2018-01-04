@@ -1,11 +1,14 @@
 /* global requirejs */
-requirejs(["socketio", "UI/UIManager_m", "PictoBox/ServerMessageManager"],
-    function(io, UIManager, ServerMessageManager) {
+requirejs(["socketio", "PictoBox/GameManager_m", "PictoBox/ServerMessageManager"],
+    function(io, GameManager_m, ServerMessageManager) {
 
-        // ServerMessageManager.eventSubscriber('roomID', function(data) {
-        //     UIManager.defindRoomID(data);
-        // });
+         ServerMessageManager.eventSubscriber('connectionRespond', function(data) {
+         	if(data.respond == true)
+            	GameManager_m.connected(true);
+         });
 
         //ServerMessageManager.eventSender('getRoomID');
+
+
     }
 );

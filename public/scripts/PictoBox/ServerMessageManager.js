@@ -7,16 +7,13 @@ define("PictoBox/ServerMessageManager", ["socketio", "PictoBox/Utilities"],
                 throw new Error("Cannot instantiate more than one ServerMessageManager, use ServerMessageManager.getInstance()");
             }
             this.SERVERADR = '/';
-            this.socket = null;
+            this.socket = null; 
 
             //Define all event here
-            this.tabEvent = [{
-                event: 'roomID',
-                callback: []
-            }, {
-                event: 'playerList',
-                callback: []
-            }, ];
+            var EVENTLIST = ['roomID','playerList', 'connectionRespond'];
+
+            this.tabEvent = this._initTabEvent(EVENTLIST);
+
             this._initialize();
         }
         ServerMessageManager.prototype = {
@@ -28,18 +25,17 @@ define("PictoBox/ServerMessageManager", ["socketio", "PictoBox/Utilities"],
                 this.socket = io.connect(this.SERVERADR);
             },
             initSocketEvent: function() {
-                //tweetArrived
-                this.socket.on(this.tabEvent[0].event, function(data) {
-                    for (var u = 0; u < this.tabEvent[0].callback.length; u++) {
-                        this.tabEvent[0].callback[u].callback(data);
-                    }
-                }.bind(this));
-
-                this.socket.on(this.tabEvent[1].event, function(data) {
-                    for (var u = 0; u < this.tabEvent[1].callback.length; u++) {
-                        this.tabEvent[1].callback[u].callback(data);
-                    }
-                }.bind(this));
+                var _this = this;
+                for (var i = 0; i < this.tabEvent.length; i++) {
+                  (function(){
+                    var _i = i;
+                    _this.socket.on(_this.tabEvent[_i].event, function(data) {
+                        for (var u = 0; u < _this.tabEvent[_i].callback.length; u++) {
+                            _this.tabEvent[_i].callback[u].callback(data);
+                        }
+                    }.bind(this));
+                  }());
+                }
             },
             eventSubscriber: function(eventName, callback) {
                 for (var i = 0; i < this.tabEvent.length; i++) {
@@ -63,6 +59,13 @@ define("PictoBox/ServerMessageManager", ["socketio", "PictoBox/Utilities"],
             eventSender: function(eventName, data) {
                 this.socket.emit(eventName, data)
             },
+            _initTabEvent: function(eventList){
+              var returnArray = [];
+              for (var i = 0; i < eventList.length; i++) {
+                returnArray.push({event : eventList[i], callback : []});
+              }
+              return returnArray;
+            }
         };
         ServerMessageManager.getInstance = function() {
             // summary:
