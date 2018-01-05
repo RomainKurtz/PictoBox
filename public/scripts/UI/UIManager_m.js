@@ -1,5 +1,5 @@
-define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m", "UI/PreGameWaiting_m"],
-    function(ServerMessageManager, Connection_m, PreGameWaiting_m) {
+define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m", "UI/PreGameWaiting_m", "UI/DrawingCanvas_m"],
+    function(ServerMessageManager, Connection_m, PreGameWaiting_m, DrawingCanvas_m) {
         var instance = null;
 
         function UIManager_m() {
@@ -14,6 +14,7 @@ define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m", "U
                 // Initializes the singleton. 
                 this.CONNECTION_DIV = $('#ConnectionDiv');
                 this.WAITING_DIV = $('#WaitingDiv');
+                this.DRAWING_DIV = $('#DrawingAppDiv');
 
                 this._masterPlayer = false;
 
@@ -23,6 +24,7 @@ define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m", "U
             createUI: function() {
                this.connection_m = new Connection_m(this.CONNECTION_DIV, this._callbackConnection);
                this.preGameWaiting_m = new PreGameWaiting_m(this.WAITING_DIV, this._callbackStartingGameRequest);
+               this.drawingCanvas_m = new DrawingCanvas_m(this.DRAWING_DIV, this._callbackStartingGameRequest);
                
                //this.defindPlayerName("totototo");
                //Materialize.updateTextFields();
@@ -49,6 +51,10 @@ define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m", "U
                     this.preGameWaiting_m.SetMasterPlayer(isMasterPlayer);
                     this.preGameWaiting_m.show()
                 }
+            },
+            startGame: function(data){
+                this.preGameWaiting_m.hide();
+                this.drawingCanvas_m.show();
             }
         };
         UIManager_m.getInstance = function() {

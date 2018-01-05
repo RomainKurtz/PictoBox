@@ -12,6 +12,5 @@ requirejs(["socketio", "PictoBox/GameManager_m", "PictoBox/ServerMessageManager"
        
         //ServerMessageManager.eventSender('getRoomID');
 
-
     }
 );

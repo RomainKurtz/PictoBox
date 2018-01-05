@@ -18,7 +18,8 @@ define("PictoBox/GameManager_m", ["UI/UIManager_m", "PictoBox/Utilities"],
                 }
             },
             startGame: function(data){
-                console.log('Start Game !!')
+                UIManager_m.startGame(data);
+                //https://github.com/krisrak/html5-canvas-drawing-app
             }
         };
         GameManager_m.getInstance = function() {
