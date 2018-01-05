@@ -24,7 +24,7 @@ define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m", "U
             createUI: function() {
                this.connection_m = new Connection_m(this.CONNECTION_DIV, this._callbackConnection);
                this.preGameWaiting_m = new PreGameWaiting_m(this.WAITING_DIV, this._callbackStartingGameRequest);
-               this.drawingCanvas_m = new DrawingCanvas_m(this.DRAWING_DIV, this._callbackStartingGameRequest);
+               this.drawingCanvas_m = new DrawingCanvas_m(this.DRAWING_DIV, this._callbackFinalDrawing);
                
                //this.defindPlayerName("totototo");
                //Materialize.updateTextFields();
@@ -37,6 +37,10 @@ define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m", "U
             },
             _callbackConnection(data){
                  ServerMessageManager.eventSender('newPlayer',{roomID : data.roomID, playerName : data.playerName });
+            },
+            _callbackFinalDrawing(data){
+                ServerMessageManager.eventSender('sendingImageData',{data : data});
+                //console.log(data);
             },
             createNotification: function(message, duration){
                 var time = (duration)?duration:4000;

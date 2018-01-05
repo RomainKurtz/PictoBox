@@ -33,6 +33,13 @@ define("UI/UIManager", [],
                     $("#playerList-div").append(playerList[i] +'<br>');
                 }
                 
+            },
+            showImage: function(data){
+                var imgDiv = $("#imageViewer-div");
+                var image = new Image();
+                console.log(data.data);
+                image.src = data.data;
+                imgDiv.prepend(image);
             }
         };
         UIManager.getInstance = function() {

@@ -11,5 +11,9 @@ requirejs(["socketio", "UI/UIManager", "PictoBox/ServerMessageManager"],
         ServerMessageManager.eventSubscriber('playerList', function(data) {
             UIManager.diplayPlayerList(data);
         });
+
+        ServerMessageManager.eventSubscriber('imageData', function(data) {
+            UIManager.showImage(data);
+        });
     }
 );

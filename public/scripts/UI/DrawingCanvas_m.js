@@ -1,9 +1,9 @@
 define("UI/DrawingCanvas_m", ['hbs!UI/templates/drawing_canvas_m', 'PictoBox/Utilities'],
     function(template, Utilities) {
         // start method
-        function DrawingCanvas_m(dom_element, callbackConnection) {
+        function DrawingCanvas_m(dom_element, callbackFinalDrawing) {
             this.parent_dom_element = dom_element;
-            this.callbackConnection = callbackConnection;
+            this.callbackFinalDrawing = callbackFinalDrawing;
             this.ID = null;
             this.initialize();
         }
@@ -22,7 +22,10 @@ define("UI/DrawingCanvas_m", ['hbs!UI/templates/drawing_canvas_m', 'PictoBox/Uti
             },
             _buildUIBehaviour: function() {
                 var _this = this;
-                 
+                $("#validateCanvas-button").click(function() {
+                    var jpegUrl = $("#canvas").get(0).toDataURL();
+                    _this.callbackFinalDrawing(jpegUrl);
+                });
             },
             _legacyCode: function(){
                 var ctx, color = "#000";   
@@ -46,7 +49,7 @@ define("UI/DrawingCanvas_m", ['hbs!UI/templates/drawing_canvas_m', 'PictoBox/Uti
                     });
                     
                     // link the new button with newCanvas() function
-                    $("#new").click(function() {
+                    $("#clearCanvas-button").click(function() {
                         newCanvas();
                     });
                 });

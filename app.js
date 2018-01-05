@@ -67,6 +67,10 @@ var app = require('express')();
     socket.on('startingGameRequest', function(data){
         io.in(socket.custom.roomID).emit('startGame', data);
     });
+    socket.on('sendingImageData', function(data){
+        getSocketAppHostByRoomName(socket.custom.roomID).emit('imageData', data);
+    });
+    
  });
 
  function returnRandomRoomID(){
