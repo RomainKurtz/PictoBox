@@ -9,9 +9,12 @@ define("PictoBox/GameManager_m", ["UI/UIManager_m", "PictoBox/Utilities"],
             _initialize: function() {
                
             },
-            connected : function(isConnected){
+            connected : function(isConnected, info){
                 if(isConnected){
-                    UIManager_m.connected(true);
+                    UIManager_m.connected(true , info.masterPlayer);
+                    UIManager_m.createNotification(info.info);
+                }else{
+                    UIManager_m.createNotification(info.info);
                 }
             }
         };

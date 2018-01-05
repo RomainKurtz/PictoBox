@@ -1,5 +1,5 @@
-define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m"],
-    function(ServerMessageManager, Connection_m) {
+define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m", "UI/PreGameWaiting_m"],
+    function(ServerMessageManager, Connection_m, PreGameWaiting_m) {
         var instance = null;
 
         function UIManager_m() {
@@ -12,18 +12,28 @@ define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m"],
             _initialize: function() {
                 // summary:
                 // Initializes the singleton. 
+                this.CONNECTION_DIV = $('#ConnectionDiv');
+                this.WAITING_DIV = $('#WaitingDiv');
+
+                this._masterPlayer = false;
+
                 this.createUI();
                 this._buildUIBehaviour();
             },
             createUI: function() {
-               this.connection_m = new Connection_m($('#mainContent'), this._callballConnection);
+               this.connection_m = new Connection_m(this.CONNECTION_DIV, this._callbackConnection);
+               this.preGameWaiting_m = new PreGameWaiting_m(this.WAITING_DIV, this._callbackStartingGame);
+               
                //this.defindPlayerName("totototo");
                //Materialize.updateTextFields();
             },
             _buildUIBehaviour: function() {
                 var _this = this;
             },
-            _callballConnection(data){
+            _callbackStartingGame(data){
+                 ServerMessageManager.eventSender('statingGame',{data : data });
+            },
+            _callbackConnection(data){
                  ServerMessageManager.eventSender('newPlayer',{roomID : data.roomID, playerName : data.playerName });
             },
             createNotification: function(message, duration){
@@ -33,10 +43,11 @@ define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m"],
             defindPlayerName: function(name){
                 $("#namePlayer-input").val(name);
             },
-            connected : function(isConnected){
+            connected : function(isConnected, isMasterPlayer){
                 if(isConnected){
                     this.connection_m.hide();
-                    console.log('COONECCTED §!!!');
+                    this.preGameWaiting_m.SetMasterPlayer(isMasterPlayer);
+                    this.preGameWaiting_m.show()
                 }
             }
         };

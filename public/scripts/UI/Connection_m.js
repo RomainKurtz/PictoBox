@@ -27,7 +27,10 @@ define("UI/Connection_m", ['hbs!UI/templates/connection_m', 'PictoBox/Utilities'
                 });
             },
             hide: function(){
-                console.log('HIDE THIS');
+                this.parent_dom_element.hide();
+            },
+            show: function(){
+                this.parent_dom_element.show();
             }
         }
         return Connection_m;
