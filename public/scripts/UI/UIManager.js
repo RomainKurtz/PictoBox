@@ -39,6 +39,7 @@ define("UI/UIManager", [],
                 var image = new Image();
                 console.log(data.data);
                 image.src = data.data;
+                $(image).addClass('imageFromPlayer');
                 imgDiv.prepend(image);
             }
         };

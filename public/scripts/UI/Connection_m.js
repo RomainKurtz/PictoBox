@@ -22,7 +22,7 @@ define("UI/Connection_m", ['hbs!UI/templates/connection_m', 'PictoBox/Utilities'
                 var _this = this;
                  $("#connection-button").click(function(){
                     var playerName = $("#namePlayer-input").val();
-                    var roomID = $("#roomID-input").val();
+                    var roomID = $("#roomID-input").val().toLowerCase();
                     _this.callbackConnection({'playerName' : playerName , 'roomID' : roomID});
                 });
             },

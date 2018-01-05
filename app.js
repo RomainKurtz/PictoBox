@@ -23,13 +23,17 @@ var app = require('express')();
 
  var io = require('socket.io').listen(server);
  io.on('connection', function(socket){
+    socket.custom = {type : '' , state : "", roomID : "", masterPlayer : ""};
     console.log('New Socket Client !'); 
     socket.on('getRoomID',function(){
     	var NewRoomID = returnRandomRoomID();
     	socket.join(NewRoomID);
-        socket.custom = {type : 'appHost' , state : "open"};
+        socket.custom = {type : 'appHost' , state : "open", 'roomID' : NewRoomID};
     	console.log("Server room "+NewRoomID);
     	socket.emit('roomID', NewRoomID);
+        socket.on('disconnect', function(){
+            //disconnectAllPlayerFromRoom(socket.custom.roomID);
+        });
     });
     socket.on('newPlayer', function(data){
         if(io.sockets.adapter.rooms[data.roomID]){ // Room exist
@@ -68,7 +72,10 @@ var app = require('express')();
         io.in(socket.custom.roomID).emit('startGame', data);
     });
     socket.on('sendingImageData', function(data){
-        getSocketAppHostByRoomName(socket.custom.roomID).emit('imageData', data);
+       var apph =  getSocketAppHostByRoomName(socket.custom.roomID);
+       if(apph){
+        apph.emit('imageData', data);
+       }
     });
     
  });
@@ -85,10 +92,12 @@ var app = require('express')();
 
 function getSocketArrayByRoomName(roomName){
     var returnArray = [];
-    var clients = io.sockets.adapter.rooms[roomName].sockets;
-    for (var clientId in clients ) {
-        //this is the socket of each client in the room.
-        returnArray.push(io.sockets.connected[clientId]); 
+    if(io.sockets.adapter.rooms[roomName]){
+        var clients = io.sockets.adapter.rooms[roomName].sockets;
+        for (var clientId in clients ) {
+            //this is the socket of each client in the room.
+            returnArray.push(io.sockets.connected[clientId]); 
+        }
     }
     return returnArray;
 }
@@ -112,6 +121,15 @@ function getPlayersNameArrayByRoomName(roomName) {
         }
     }
     return returnArray;
+}
+
+function disconnectAllPlayerFromRoom (roomName) {
+
+    var socketList = getSocketArrayByRoomName(roomName);
+
+    for(var i = 0; i < socketList.length; i++) {
+        socketList[i].disconnect();
+    }
 }
 
 //
