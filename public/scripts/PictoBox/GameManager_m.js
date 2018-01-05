@@ -9,13 +9,16 @@ define("PictoBox/GameManager_m", ["UI/UIManager_m", "PictoBox/Utilities"],
             _initialize: function() {
                
             },
-            connected : function(isConnected, info){
+            connected: function(isConnected, info){
                 if(isConnected){
                     UIManager_m.connected(true , info.masterPlayer);
                     UIManager_m.createNotification(info.info);
                 }else{
                     UIManager_m.createNotification(info.info);
                 }
+            },
+            startGame: function(data){
+                console.log('Start Game !!')
             }
         };
         GameManager_m.getInstance = function() {

@@ -37,7 +37,7 @@ var app = require('express')();
             if(appHost){
                 if(appHost.custom.state == "open"){
                 	socket.join(data.roomID);
-                    socket.custom = {type : 'appPlayer', playerName : data.playerName, masterPlayer : false};
+                    socket.custom = {type : 'appPlayer', playerName : data.playerName, masterPlayer : false, roomID : data.roomID};
                     var playerList = getPlayersNameArrayByRoomName(data.roomID);
                     
                     if(playerList.length == 1){ // If the player is the appPlayer into the room, he is the master player.
@@ -63,6 +63,9 @@ var app = require('express')();
             console.log("Player try to join "+ data.roomID + " but room don't exist.");
             socket.emit('connectionRespond', {respond : false, info : "No room or game already start."});
         }
+    });
+    socket.on('startingGameRequest', function(data){
+        io.in(socket.custom.roomID).emit('startGame', data);
     });
  });
 

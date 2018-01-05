@@ -10,7 +10,7 @@ define("PictoBox/ServerMessageManager", ["socketio", "PictoBox/Utilities"],
             this.socket = null; 
 
             //Define all event here
-            var EVENTLIST = ['roomID','playerList', 'connectionRespond'];
+            var EVENTLIST = ['roomID','playerList', 'connectionRespond', 'startGame'];
 
             this.tabEvent = this._initTabEvent(EVENTLIST);
 
