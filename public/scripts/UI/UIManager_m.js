@@ -16,6 +16,9 @@ define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m", "U
                 this.WAITING_DIV = $('#WaitingDiv');
                 this.DRAWING_DIV = $('#DrawingAppDiv');
 
+                this._playerName = null;
+                this._RoomID = null;
+
                 this._masterPlayer = false;
 
                 this.createUI();
@@ -36,6 +39,9 @@ define("UI/UIManager_m", ["PictoBox/ServerMessageManager", "UI/Connection_m", "U
                  ServerMessageManager.eventSender('startingGameRequest',{data : data});
             },
             _callbackConnection(data){
+                this._playerName = data.playerName;
+                this._RoomID = data.roomID;
+                
                  ServerMessageManager.eventSender('newPlayer',{roomID : data.roomID, playerName : data.playerName });
             },
             _callbackFinalDrawing(data){

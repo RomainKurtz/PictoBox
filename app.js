@@ -74,6 +74,7 @@ var app = require('express')();
     socket.on('sendingImageData', function(data){
        var apph =  getSocketAppHostByRoomName(socket.custom.roomID);
        if(apph){
+        data.playerName = socket.custom.playerName;
         apph.emit('imageData', data);
        }
     });

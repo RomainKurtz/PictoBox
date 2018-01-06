@@ -36,8 +36,9 @@ define("UI/UIManager", [],
             },
             showImage: function(data){
                 var imgDiv = $("#imageViewer-div");
+
+                imgDiv.append('<div><center><h4>'+data.playerName.toUpperCase()+'</h4></center></div>');    
                 var image = new Image();
-                console.log(data.data);
                 image.src = data.data;
                 $(image).addClass('imageFromPlayer');
                 imgDiv.prepend(image);
